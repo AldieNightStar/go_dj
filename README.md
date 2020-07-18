@@ -1,6 +1,8 @@
 # Go DJ
 ### Mix your dependencies
 
+Some sort of DI Container for Golang.
+
 ```go
 package main
 
@@ -18,8 +20,8 @@ func main() {
 	c := go_dj.NewContainer()
 
         // Register "math" which has "add", "sub" as a dependencies
-        // Then return function which is our provider, which then will
-        // will return what we need
+        // Then return function which is our provider, which then
+        //   will return what we expect
 	c.Register("math", func(args ... go_dj.Any) go_dj.Any {
 		return Math(func() (a, b int16){
 			add := args[0].(Resolver)
@@ -40,11 +42,11 @@ func main() {
 		})
 	})
     
-        // Provide Math from Container 
-	math, _ := c.Provide("math")
+        // Provide Math from the Container 
+	math, _ := c.Provide("math") // Can return error when item is not available or dependencies are unmet
 	m := math.(Math)
     
-        // Do some operations with Math object
+        // Do some operations with the Math object
 	a, b := m()
 	fmt.Printf("%d %d\n", a, b)
 }
